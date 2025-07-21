@@ -1,22 +1,35 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState , useMemo , useCallback } from "react";
+import Navbar from "./Navbar";
+
+// const nums = new Array(30_00_0000).fill(0).map((_ ,i)=>{
+//   return{
+//     index:i,
+//     isMagical:i===29_00_0000
+//   }
+// })
 
 const App = () => {
   const [count, setCount] = React.useState(0);
+  const [adjective , setAdjective] = useState("Good")
+  // const [numbers , setNumbers] = useState(nums)
+  
 
-  const countRef = useRef(0);
-  const btnRef = useRef();
 
+  // const magical = useMemo(()=>numbers.find(item=>item.isMagical) , [])
 
-  useEffect(() => {
-    countRef.current = countRef.current + 1;
-    console.log("Rendering App component" , countRef.current);
-  });
-
-  const onChangeColor = ()=>{
-    btnRef.current.style.backgroundColor = "Red"
-  }
+  const getAdjective = useCallback(()=>{
+    return "Another"
+  },[])
+ 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-zinc-800 text-white">
+      
+      <Navbar adjective={adjective} getAdjective={getAdjective}/>
+
+    <button onClick={()=>setAdjective("Suraj")}>
+      Change Value
+    </button>
+
       <div className="flex flex-row items-center justify-center gap-4">
         <button
           onClick={() => setCount(count + 1)}
@@ -24,7 +37,7 @@ const App = () => {
         >
           + Add
         </button>
-        <span className="text-2xl font-bold">{count}</span>
+        <span className="text-2xl font-bold">{count} </span>
         <button
           onClick={() => setCount(count - 1)}
           className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
@@ -32,9 +45,7 @@ const App = () => {
           - Remove
         </button>
 
-        <button ref={btnRef} onClick={onChangeColor}>
-          change color to red
-        </button>
+       
       </div>
     </div>
   );
