@@ -1,8 +1,14 @@
 import React from 'react'
+import fs from "fs/promises"
+const Page = async() => {
 
-const Page = () => {
+ const res = await fetch("https://api.github.com/users/aestheticsuraj234")
+ const data = await res.json()
   return (
-    <div>Page</div>
+    <div>
+      {JSON.stringify(data)}
+      {/* <button onClick={()=>alert("Hello")}>Click me</button> */}
+    </div>
   )
 }
 
